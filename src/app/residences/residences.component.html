@@ -1,0 +1,58 @@
+
+<!-- Filtrage des résidences selon l'adresse saisie -->
+<div>
+    <input type="text" 
+           id="search" 
+           [(ngModel)]="searchAddress" 
+           placeholder="Entrez une adresse..." /> 
+  </div>
+  
+  <!-- Affichage de la liste des résidences filtrées -->
+  <div *ngFor="let residence of filterResidences()">
+    <!-- Conteneur de chaque résidence -->
+    <div class="residence-card">
+      
+      <!-- Affichage du nom de la résidence -->
+      <h3>{{ residence.name }}</h3>
+      
+      <!-- Affichage de l'image de la résidence -->
+      <img [src]="residence.image" alt="{{ residence.name }}" class="residence-image" />
+  
+      <!-- Bouton pour afficher l'adresse de la résidence -->
+      <button (click)="showLocation(residence)">
+        Show Location
+      </button>
+  
+      <!-- Affichage du statut de la résidence avec une icône/texte spécifique -->
+      <div [ngSwitch]="residence.status">
+        
+        <!-- Si le statut est 'Disponible' -->
+        <div *ngSwitchCase="'Disponible'" class="status available">
+          <span>Disponible</span>
+        </div>
+  
+        <!-- Si le statut est 'Vendu' -->
+        <div *ngSwitchCase="'Vendu'" class="status sold">
+          <span>Vendu</span>
+        </div>
+  
+        <!-- Si le statut est 'En Construction' -->
+        <div *ngSwitchCase="'En Construction'" class="status under-construction">
+          <span>En Construction</span>
+        </div>
+  
+        <!-- Si le statut est inconnu -->
+        <div *ngSwitchDefault class="status unknown">
+          <span>Status inconnu</span>
+        </div>
+      </div>
+  
+      <!-- Bouton 'like' pour ajouter cette résidence aux favoris -->
+      <button (click)="toggleFavorite(residence)">
+        Like
+      </button>
+    </div>
+  </div>
+  
+  <!-- Fin du composant ResidencesComponent -->
+  
